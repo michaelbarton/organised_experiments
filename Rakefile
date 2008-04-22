@@ -10,4 +10,7 @@ end
 task :environment do
     ActiveRecord::Base.establish_connection(YAML::load(File.open('db/database.yml')))  
     ActiveRecord::Base.logger = Logger.new $stderr
+
+    Dir['models/*.rb'].each {|file| require file }
+    
 end
