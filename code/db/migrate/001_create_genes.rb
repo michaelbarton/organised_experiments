@@ -1,4 +1,4 @@
-class CreateGenesTable < ActiveRecord::Migration
+class CreateGenes < ActiveRecord::Migration
   def self.up
     create_table :genes do |t|
       t.column :name,     :string
