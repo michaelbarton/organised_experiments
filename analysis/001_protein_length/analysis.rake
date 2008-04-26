@@ -3,20 +3,23 @@ require 'zlib'
 require 'rubygems'
 require 'bio'
 
-desc 'Repeat all protein length analysis'
-rake :rebuild_001 => [:load_sequences]
+namespace '001' do
 
-desc 'Loads the protein sequences into the databases'
-rake :load_sequences do
+  desc 'Repeat all protein length analysis'
+  task :build => [:load_sequences]
 
-  # Delete all existing data
-  #Genes.delete :all
+  desc 'Loads the protein sequences into the databases'
+  task :load_sequences do
 
-  file_gz = File.dirname(__FILE__) + 'data/protein.fasta.gz'
+    # Delete all existing data
+    #Genes.delete :all
 
-  Zlib::GzipReader.open(seqs) do |file|
-    p Bio::FlatFile.auto(file).first
+    file_gz = File.dirname(__FILE__) + 'data/protein.fasta.gz'
+
+    Zlib::GzipReader.open(seqs) do |file|
+      p Bio::FlatFile.auto(file).first
+    end
+
   end
 
 end
-
