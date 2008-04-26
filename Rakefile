@@ -1,11 +1,9 @@
 require 'rake'
 require 'active_record'
 require 'yaml'
-
-#load 'analysis/001_protein_length/analysis.rake'
-
-
 Dir['analysis/*/*.rake'].each {|file| load File.join(File.dirname(__FILE__) ,'/',file) }
+
+
 
 desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"  
 task :migrate => :environment do  
