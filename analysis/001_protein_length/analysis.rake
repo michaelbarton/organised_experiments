@@ -10,7 +10,7 @@ namespace '001' do
 
   desc 'Delete all exiting sequences from the database'
   task :delete_sequences do
-    Genes.delete :all
+    Gene.delete :all
   end
 
   desc 'Loads the protein sequences into the databases'
