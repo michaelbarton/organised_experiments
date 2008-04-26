@@ -21,4 +21,12 @@ namespace '001' do
     end
   end
 
+  desc 'Calculates statistics for gene sequences'
+  task :sequence_stats do
+    File.open(File.dirname(__FILE__) + '/results/sequence_statistics.txt','w') do |file|
+      file.puts "Gene mean length : #{ Gene.mean_length }"
+      file.puts "Gene length standard deviation : #{ Gene.sd_length }"
+    end
+  end
+
 end
