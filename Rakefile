@@ -1,8 +1,8 @@
 require 'rake'
 require 'active_record'
 require 'yaml'
+
 ActiveRecord::Base.establish_connection(YAML::load(File.open('db/database.yml')))  
-ActiveRecord::Base.logger = Logger.new $stderr
 
 Dir['analysis/*/*.rake'].each {|file| load File.join(File.dirname(__FILE__) ,'/',file) }
 Dir['models/*.rb'].each {|file| require file }
