@@ -3,3 +3,4 @@ Migrations files names should prefix migration files -> Numbers
 
 Using sqlite will mean database is created automatically from parameters
 
+rubygems statarray
