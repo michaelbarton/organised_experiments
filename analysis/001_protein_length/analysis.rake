@@ -6,7 +6,7 @@ require 'bio'
 namespace '001' do
 
   desc 'Repeat all protein length analysis'
-  task :build => [:load_sequences]
+  task :build => [:load_sequences,:sequence_stats]
 
   desc 'Delete all exiting sequences from the database'
   task :delete_sequences do
