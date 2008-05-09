@@ -1,7 +1,9 @@
 require 'rubygems'
 require 'statarray'
 
-class Gene < ActiveRecord::Base
+class Gene < Datamapper::Base
+  property :name,      :string
+  property :sequences, :text
 
   def self.create_from_flatfile(entry)
     Gene.create(
