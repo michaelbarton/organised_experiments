@@ -1,0 +1,15 @@
+# sqlite3 settings for datamapper
+# requires do_sqlite3 gem
+# gem install do_sqlite3
+adapter: sqlite3
+database: database.sqlite3
+#timeout: 5000
+
+# mysql settings for datamapper
+# requires do_mysql
+# gem install do_mysql
+# If this produces errors install mysql developer libraries
+# adapter: mysql
+# username: username
+# password: password
+# socket: /tmp/mysql.sock
