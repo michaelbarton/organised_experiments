@@ -1,9 +1,15 @@
 require 'rubygems'
 require 'statarray'
 
-class Gene < Datamapper::Base
+class Gene < DataMapper::Base
+
+  # Each of these defines a accessor method for the class
+  # and each also corresponds to a column in the database
   property :name,      :string
   property :sequences, :text
+
+  # Checks that the sequence has a start codon, a stop codon, and contains only ATGC
+  validates_format_of :sequence, :with => /^ATG[ATGC]+[TAG|TAA|TGA]$/
 
   def self.create_from_flatfile(entry)
     Gene.create(
