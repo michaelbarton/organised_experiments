@@ -12,10 +12,18 @@ class Gene < DataMapper::Base
   validates_format_of :sequence, :with => /^ATG[ATGC\n]+(TAG|TAA|TGA)$/im
 
   def self.create_from_flatfile(entry)
-    Gene.create(
-      :name      =>  entry.definition.split(/\s+/).first,
-      :sequence  =>  entry.data     
-    )
+
+    gene = Gene.new
+    gene.name = entry.definition.split(/\s+/).first
+    gene.sequence = entry.data
+
+    if gene.valid?
+      gene.save!
+    else
+      puts "#{gene.name} is not contain a valid sequence "
+      # Could raise an error here instead
+      # Or even better write to an error log
+    end
   end
 
   def self.mean_length
