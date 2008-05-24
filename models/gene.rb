@@ -9,7 +9,7 @@ class Gene < DataMapper::Base
   property :sequences, :text
 
   # Checks that the sequence has a start codon, a stop codon, and contains only ATGC
-  validates_format_of :sequence, :with => /^ATG[ATGC]+[TAG|TAA|TGA]$/
+  validates_format_of :sequence, :with => /^ATG[ATGC\n]+(TAG|TAA|TGA)$/im
 
   def self.create_from_flatfile(entry)
     Gene.create(
