@@ -8,11 +8,11 @@ require 'google_chart'
 namespace '001' do
 
   desc 'Repeat all protein length analysis'
-  task :build => [:load_sequences,:sequence_stats]
+  task :rebuild => [:load_sequences,:sequence_stats]
 
   desc 'Delete all exiting sequences from the database'
   task :delete_sequences do
-    Gene.delete :all
+    Gene.delete_all
   end
 
   desc 'Loads the protein sequences into the databases'
