@@ -23,8 +23,15 @@ namespace '001' do
     end
   end
 
+  desc 'Checks to see if sequences need to be loaded'
+  task :check_load_sequences do
+    if Gene.all.length == 0
+      Rake::Task['001:load_sequences'].invoke
+    end
+  end
+
   desc 'Calculates statistics for gene sequences'
-  task :sequence_stats do
+  task :sequence_stats => :check_load_sequences do
     File.open(File.dirname(__FILE__) + '/results/sequence_statistics.txt','w') do |file|
       file.puts "Gene mean length : #{ Gene.mean_length }"
       file.puts "Gene length standard deviation : #{ Gene.sd_length }"
@@ -32,7 +39,7 @@ namespace '001' do
   end
 
   desc 'Plots histogram of the sequences lengths'
-  task :length_histo do
+  task :length_histo => :check_load_sequences do
     freq_table = Gene.bin_sequence_length(10)
     
     size = '600x200'
