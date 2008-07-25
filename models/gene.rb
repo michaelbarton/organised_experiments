@@ -1,15 +1,17 @@
 require 'rubygems'
 require 'statarray'
 
-class Gene < DataMapper::Base
+class Gene
+  include DataMapper::Resource
 
   # Each of these defines a accessor method for the class
   # and each also corresponds to a column in the database
-  property :name,      :string
-  property :sequence,  :text
+  property :id,       Integer, :serial => true
+  property :name,     String
+  property :sequence, Text
 
   # Checks that the sequence has a start codon, a stop codon, and contains only ATGC
-  validates_format_of :sequence, :with => /^ATG[ATGC\n]+(TAG|TAA|TGA)$/im
+  validates_format :sequence, :with => /^ATG[ATGC\n]+(TAG|TAA|TGA)$/im
 
   def self.create_from_flatfile(entry)
 
@@ -27,17 +29,15 @@ class Gene < DataMapper::Base
   end
 
   def self.mean_length
-    genes = Gene.find(:all)
-    genes.map{|gene| gene.sequence.length}.to_statarray.mean
+    Gene.all.map{|gene| gene.sequence.length}.to_statarray.mean
   end
 
   def self.sd_length
-    genes = Gene.find(:all)
-    genes.map{|gene| gene.sequence.length}.to_statarray.stddev
+    Gene.all.map{|gene| gene.sequence.length}.to_statarray.stddev
   end
 
   def self.bin_sequence_length(n_bins)
-    lengths = Gene.find(:all).map{|gene| gene.sequence.length}
+    lengths = Gene.all.map{|gene| gene.sequence.length}
     min = lengths.min
     max = lengths.max
     bin_size = (max - min) / n_bins
