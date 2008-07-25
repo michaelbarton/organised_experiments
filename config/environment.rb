@@ -1,11 +1,12 @@
-require 'data_mapper'
 require 'yaml'
- 
+require 'rubygems'
+gem 'dm-core'
+require 'dm-core'
+require 'dm-validations'
+
 # Configure data mapper so that it can access the data base
-DataMapper::Database.setup(
-  YAML::load(
-    File.open(File.dirname(__FILE__) + '/database.yml')
-  )
+DataMapper.setup(:default,
+  YAML::load(File.open(File.dirname(__FILE__) + '/database.yml'))
 )
 
 # Load all the data mapper models into memory
