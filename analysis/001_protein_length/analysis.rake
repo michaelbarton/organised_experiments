@@ -12,7 +12,9 @@ namespace '001' do
 
   desc 'Delete all exiting sequences from the database'
   task :delete_sequences do
-    Gene.delete_all
+    # This really needs to be optimised
+    # But DataMapper has no delete_all method
+    Gene.all.each {|x| x.destroy}
   end
 
   desc 'Loads the protein sequences into the databases'
